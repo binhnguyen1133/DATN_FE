@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale';
 import {
 	Login,
 	CreateJob,
@@ -7,7 +8,9 @@ import {
 	About,
 	SignUpComponent,
 	UserProfile,
+	ApplyJob
 } from '../Barrel/index.js';
+
 const routes = [
 	{
 		path: '/',
@@ -40,6 +43,10 @@ const routes = [
 	{
 		path: '/my-account',
 		component: UserProfile,
+	},
+	{
+		path: '/apply-job/:id',
+		component: ApplyJob,
 	}
 ];
 

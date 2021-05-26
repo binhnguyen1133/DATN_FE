@@ -151,7 +151,6 @@ export class Header extends React.Component {
 						</div>
 					</header>
 					<SearchBar />
-					{/* <Filter /> */}
 					<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
