@@ -29,6 +29,9 @@ export class SearchResult extends React.Component {
     const id = decodeURIComponent(this.props.match.params.id);
     // console.log(this.props.match);
     await this.getJobs(id, this.state.pageIndex, this.state.skipRelatedRecords, this.state.skipNormalizeRecords);
+    this.setState({
+      jobsByFilter: [... this.state.jobs]
+    });
   }
 
   handlePageChange(newPage, skipRelatedRecords, skipNormalizeRecords) {
@@ -73,34 +76,32 @@ export class SearchResult extends React.Component {
 
   handleFilterChange(filter, category){
     let arrTemp = [];
-      this.state.jobs.map((jobType) =>{
-        let key = jobType[0]
-        let temp_arr = [key,[]]
-        
-        // temp_arr.push(jobType[1].filter((item) =>{
-        //   const convertDate = new Date(item.ngay_bat_dau);
-        //   return convertDate.getTime() > filter || (item.luong_toi_da >= filter[0] && item.luong_toi_da < filter[1]);
-        // }));
+    this.state.jobs.map((jobType) =>{
+      let key = jobType[0]
+      let temp_arr = [key,[]]
+      
+      // temp_arr.push(jobType[1].filter((item) =>{
+      //   const convertDate = new Date(item.ngay_bat_dau);
+      //   return convertDate.getTime() > filter || (item.luong_toi_da >= filter[0] && item.luong_toi_da < filter[1]);
+      // }));
 
-        jobType[1].map(job =>{
-          const convertDate = new Date(job.ngay_bat_dau);
-          // if((convertDate.getTime() > filter && category==="date") && ((job.luong_toi_da >= filter[0] && job.luong_toi_da < filter[1]) && category==="salary")){
-          //   temp_arr[1].push(job)
-          // }
-          if(category==="date"){
-            if(convertDate.getTime() > filter)
-              temp_arr[1].push(job);
-          }
-          if(category==="salary"){
-            if(job.luong_toi_da >= filter[0] && job.luong_toi_da < filter[1])
-              temp_arr[1].push(job);
-          }
-        })
-        arrTemp.push(temp_arr);
+      jobType[1].map(job =>{
+        const convertDate = new Date(job.ngay_bat_dau);
+        if(category==="date" && convertDate.getTime() > filter){
+            temp_arr[1].push(job);
+        }
+        if(category==="salary" && (job.luong_toi_da >= filter[0] && job.luong_toi_da < filter[1])){
+            temp_arr[1].push(job);
+        }
+        if(category=== "date" || category==="salary"){
+          temp_arr[1].push(job);
+        }
       })
-      this.setState({
-        jobsByFilter: arrTemp
-      })  
+      arrTemp.push(temp_arr);
+    })
+    this.setState({
+      jobsByFilter: arrTemp
+    })
   }
 
   changeDate(date) {
@@ -125,10 +126,6 @@ export class SearchResult extends React.Component {
         skipNormalizeRecords: data.data.skipNormalizeRecords,
         totalRecord: data.data.totalRecord,
       };
-    },() =>{
-      this.setState({
-        jobsByFilter: [... this.state.jobs]
-      })
     });  
   }
 
@@ -137,14 +134,13 @@ export class SearchResult extends React.Component {
     console.log("renderd");
     return (
       <div>
-      <Filter 
+      {/* <Filter 
         onDateChange={(filter)=>this.handleFilterChange(filter,"date")} 
         onSalaryChange={(filter)=>this.handleFilterChange(filter,"salary")} 
-      />
-      {/* <Filter onDateChange={this.handleDateChange} onSalaryChange={this.handleSalaryChange} /> */}
+      /> */}
+      <Filter onDateChange={this.handleDateChange} onSalaryChange={this.handleSalaryChange} />
       <div className="result-jobs">
         {this.state.jobsByFilter.map((item, key) =>{
-          // console.log(item);
           if(item[1].length!==0){
           return (
             <div className="container" key={key}>
@@ -302,13 +298,13 @@ export class SearchResult extends React.Component {
             </div>
           );
         }})}
-      <Pagination
-        onPageChange={this.handlePageChange}
-        pageIndex={this.state.pageIndex}
-        totalRecord={this.state.totalRecord}
-        skipRelatedRecords={this.state.skipRelatedRecords}
-        skipNormalizeRecords={this.state.skipNormalizeRecords}
-      />
+        <Pagination
+          onPageChange={this.handlePageChange}
+          pageIndex={this.state.pageIndex}
+          totalRecord={this.state.totalRecord}
+          skipRelatedRecords={this.state.skipRelatedRecords}
+          skipNormalizeRecords={this.state.skipNormalizeRecords}
+        />
       </div>
     
       </div>
