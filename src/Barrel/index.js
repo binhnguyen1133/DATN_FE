@@ -11,6 +11,7 @@ import { Pagination } from '../Components/Pagination/pagination.js';
 import { About } from '../Components/About/about.js';
 import { SignUpComponent } from '../Components/signup/signup.js';
 import { UserProfile } from '../Components/user-profile/user-profile.js';
+import { ApplyJob } from '../Components/apply-job/apply-job.js'
 
 export {
 	Login,
@@ -25,5 +26,6 @@ export {
 	Pagination,
 	About,
 	SignUpComponent,
-	UserProfile
+	UserProfile,
+	ApplyJob
 };

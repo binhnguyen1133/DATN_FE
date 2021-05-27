@@ -2,6 +2,8 @@ import React from 'react';
 import './job-detail.scoped.css';
 import qs from 'query-string';
 import _, { join } from 'lodash';
+import { Link } from 'react-router-dom';
+import ApplyJob from '../apply-job/apply-job';
 
 export class JobDetail extends React.Component {
     constructor(props) {
@@ -72,8 +74,12 @@ export class JobDetail extends React.Component {
                                 <h3>Short Description</h3>
 
                                 <p>- Medical / Health Jobs <br /> - London <br /> - 20-06-2020  <br />  - Contract</p>
-
-                                <a href="#" className="button primary">Apply for this job</a>
+                                <Link 
+                                    to={{ pathname: `/apply-job/${this.state.job.ma_cong_viec}`, query: {ma_doanh_nghiep: this.state.job.ma_doanh_nghiep, ma_cong_viec: this.state.job.ma_cong_viec}}} 
+                                    className="button primary" 
+                                >
+                                    Apply for this job
+                                </Link>
                             </div>
                         </div>
                     </div>
