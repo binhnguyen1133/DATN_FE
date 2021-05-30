@@ -86,12 +86,13 @@ export function ApplyJob(props) {
         <div className="apply-job">
             <h1 className="heading">APPLY FOR THIS JOB</h1>
             <form className={classes.root} className="form-top" noValidate autoComplete="off">
-                <TextField className="form" id="outlined-basic-1" label="Full name" variant="outlined" onChange={handleChangeName}/>
-                <TextField className="form" id="outlined-basic-2" label="Phone" variant="outlined" onChange={handleChangePhone}/>
-                <TextField className="form" id="outlined-basic-3" label="Email" type="email" variant="outlined" onChange={handleChangeEmail}/>
+                <TextField className="form" id="outlined-basic-1" label="Full name" variant="outlined" onChange={handleChangeName} required/>
+                <TextField className="form" id="outlined-basic-2" label="Phone" variant="outlined" onChange={handleChangePhone} required/>
+                <TextField className="form" id="outlined-basic-3" label="Email" type="email" variant="outlined" onChange={handleChangeEmail} required/>
                 <input
                     id="contained-button-file"
                     type="file"
+                    required
                     onChange={handleFileChange}
                 />
                 <Button className="submit-btn" variant="contained" color="primary" onClick={handleSubmit}>
