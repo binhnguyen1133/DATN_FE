@@ -34,14 +34,15 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
-  // for(let i = 0; i < candidatesList.length; i++){
-  //   if(job.ma_cong_viec === candidatesList[i].ma_cong_viec)
-  //     console.log(candidatesList[i]); 
-  // }
+  const [candidates, setCandidates] = useState(candidatesList);
 
-  if(job.ma_cong_viec === 1){
-    console.log(job);
-    // console.log(candidatesList);
+  const handleCandidateList = () => {
+    let newCandidate = [];
+    for (let i = 0; i< candidates; i++){
+      if(job.ma_cong_viec === candidates[i].ma_cong_viec)
+        newCandidate.push(candidates[i]);
+    }
+    return setCandidates(newCandidate);
   }
 
   return (
