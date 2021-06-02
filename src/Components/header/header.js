@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import React from 'react';
-import Filter from '../filter/filter.js';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loginToken } from '../../services/api.js';
 import './header.css';
 import { SearchBar } from './search-bar/search-bar';
@@ -11,28 +10,32 @@ export class Header extends React.Component {
 		super(props);
 		this.state = {
 			role: undefined,
+			isLogin: false
 		};
 
 		this.checkLogin = this.checkLogin.bind(this);
 		this.checkRole = this.checkRole.bind(this);
-		this.signout = this.signout.bind(this);
+		this.signOut = this.signOut.bind(this);
 	}
 
 	async componentDidMount() {
 		// console.log('Header');
 		const account = await this.checkRole();
+		console.log(account);
 		if (account !== null) {
 			if (Object.keys(account).indexOf('ma_dn') > -1) {
 				this.setState({
 					role: 'dn',
 				});
 			}
-			if (Object.keys(account).indexOf('ma_kh') > -1) {
+			if (Object.keys(account).indexOf('ma_kh') > -1 && Object.keys(account).indexOf('ma_dn') === -1) {
 				this.setState({
 					role: 'kh',
 				});
 			}
 		}
+
+		this.checkLogin();
 
 		// Menu.
 		var $menu = $('#menu');
@@ -69,13 +72,13 @@ export class Header extends React.Component {
 		$menu
 			.appendTo($topbar)
 			.on('click', function(event) {
-				event.stopPropagation();
+				// event.stopPropagation();
 			})
 			.on('click', 'a', function(event) {
 				var href = $(this).attr('href');
 
 				event.preventDefault();
-				event.stopPropagation();
+				// event.stopPropagation();
 
 				// Hide.
 				$menu._hide();
@@ -84,8 +87,9 @@ export class Header extends React.Component {
 				if (href === '#menu') return;
 
 				window.setTimeout(function() {
+					console.log(href);
 					window.location.href = href;
-				}, 350);
+				}, 0);
 			})
 			.append('<a class="close" href="#menu">Close</a>');
 
@@ -108,11 +112,17 @@ export class Header extends React.Component {
 	}
 
 	checkLogin() {
-		return localStorage.getItem('token');
+		const token = localStorage.getItem("token");
+		if(token){
+			this.setState({isLogin: true}); 
+			return localStorage.getItem('token')
+		}
+		return localStorage.getItem("token");
 	}
 
 	async checkRole() {
 		const token = this.checkLogin();
+		console.log("role");
 		if (token) {
 			const res = await loginToken(token);
 			return res;
@@ -120,10 +130,10 @@ export class Header extends React.Component {
 		return null;
 	}
 
-	signout(e) {
-		e.preventDefault();
-		console.log('signout');
-		localStorage.removeItem('token');
+	signOut(e) {
+		// e.preventDefault();
+		console.log('signOut');
+		localStorage.removeItem("token");
 		this.setState({
 			role: undefined,
 		});
@@ -131,11 +141,11 @@ export class Header extends React.Component {
 
 	render() {
 		return (
-			<BrowserRouter>
+			// <BrowserRouter>
 				<div id="topbar">
 					<header id="header">
 						<div className="inner">
-							<Link to={`/about`} className="logo">
+							<Link to={`/`} className="logo">
 								<span className="fa fa-briefcase" />{' '}
 								<span className="title">
 									Job Agency Website
@@ -155,65 +165,42 @@ export class Header extends React.Component {
 						<h2>Menu</h2>
 						<ul>
 							<li>
-								<a href="/">Home</a>
+								<Link to='/'>Home</Link>
 							</li>
-							{/* <li>
-                <a href="jobs.html">Jobs</a>
-              </li> */}
 							{this.state.role === 'dn' ? (
 								<li>
 									<Link to="/create/job">Post a job</Link>
 								</li>
 							) : null}
-							<li>
-								<a href="/">About</a>
-								<ul>
-									<li>
-										<a href="about.html">About Us</a>
-									</li>
-									<li>
-										<a href="team.html">Team</a>
-									</li>
-									<li>
-										<a href="blog.html">Blog</a>
-									</li>
-									<li>
-										<a href="testimonials.html">
-											Testimonials
-										</a>
-									</li>
-									<li>
-										<a href="terms.html">Terms</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="contact.html">Contact Us</a>
-							</li>
-
-							{this.checkLogin ? (
-								<li
-									stype={{ cursor: 'pointer' }}
-									onClick={this.signout}
-								>
-									{' '}
-									Signout
+							{this.state.role === 'dn' ? (
+								<li>
+									<Link to="/manage-job">Manage Job</Link>
 								</li>
-							) : null}
-							{!this.checkLogin ? (
+							 ) : null}
+							<li>
+								<Link to="/about">About us</Link>
+							</li>
+							{this.state.isLogin ? (
+								<li id="sign-out-btn">
+										{/* <button onClick={this.signOut.bind(this)}>Sign out</button> */}
+									<Link to="/" onClick={this.signOut}>Sign out</Link>
+								</li>
+							): null} 
+							{!this.state.isLogin ? (
 								<li>
 									<Link to="/login">Login</Link>
 								</li>
 							) : null}
-							{!this.checkLogin ? (
+							
+							{!this.state.isLogin ? (
 								<li>
-									<Link to="/register">Signup</Link>
+									<Link to="/register">Sign up</Link>
 								</li>
 							) : null}
 						</ul>
 					</nav>
 				</div>
-			</BrowserRouter>
+			// </BrowserRouter>
 		);
 	}
 }

@@ -50,7 +50,7 @@ const routes = [
 		component: ApplyJob,
 	},
 	{
-		path: '/manage-job/:id',
+		path: '/manage-job',
 		component: ListApplyJob
 	}
 ];
