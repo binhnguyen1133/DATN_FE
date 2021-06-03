@@ -45,10 +45,6 @@ export function ApplyJob(props) {
 
     const [cv, setCv] = useState(null);
 
-    // useEffect(()=>{
-    //     fetch('')
-    // })
-
     function handleChangeName(e){
         let info = e.target.value;
         return setName(info);
@@ -80,7 +76,6 @@ export function ApplyJob(props) {
 
         axios.post('https://localhost:44367/api/v1/jobs/apply', formData);
     }
-
 
     return (
         <div className="apply-job">

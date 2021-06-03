@@ -80,6 +80,7 @@
                     overflow: hidden;
                     padding: 0;
                     white-space: nowrap;
+                    color: black;
                 }
 
                     #header nav ul li a[href="#menu"]:before, #header nav ul li a[href="#menu"]:after {
@@ -136,14 +137,6 @@
 
 /* Menu */
 
-#wrapper {
-    -moz-transition: opacity 0.45s ease;
-    -webkit-transition: opacity 0.45s ease;
-    -ms-transition: opacity 0.45s ease;
-    transition: opacity 0.45s ease;
-    opacity: 1;
-}
-
 #menu {
     -moz-transform: translateX(22em);
     -webkit-transform: translateX(22em);
@@ -163,7 +156,7 @@
     background: #585858;
     color: #ffffff;
     cursor: default;
-    visibility: hidden;
+    /* visibility: hidden; */
     z-index: 10002;
 }
 
@@ -173,7 +166,7 @@
         -ms-transition: opacity 0.45s ease;
         transition: opacity 0.45s ease;
         -webkit-overflow-scrolling: touch;
-        position: absolute;
+        /* position: absolute; */
         top: 0;
         left: 0;
         width: 100%;
@@ -210,25 +203,6 @@
                     border-top: 0;
                     margin-top: -1em;
                 }
-
-        #menu > .inner > ul > li ul { 
-            padding-bottom: 15px;
-            list-style: none; 
-        }
-
-        #menu > .inner > ul > li ul li { 
-            margin-bottom: 15px;
-        }
-
-        #menu > .inner > ul > li ul a { 
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-
-        #menu > .inner > ul > li ul .dropdown-toggle:after {
-            margin-top: 4px!important;
-            margin-bottom: -4px!important;
-        }
 
     #menu > .close {
         -moz-transition: opacity 0.45s ease, -moz-transform 0.45s ease;
@@ -346,3 +320,4 @@
 #topbar{
     position: relative;
 }
+
