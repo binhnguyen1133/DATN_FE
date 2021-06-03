@@ -65,6 +65,8 @@ const time = [
 	},
 ];
 
+let cities = [];
+
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		margin: theme.spacing(1),
@@ -76,16 +78,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Filter(props) {
 	const classes = useStyles();
-
+	cities = [
+		{
+			id: 0,
+			name: 'All',
+			value: 'All',
+		},
+		...props.cities,
+	];
+	console.log(cities);
 	const [filterTime, setfilterTime] = React.useState(Infinity);
 	const [filterSalary, setfilterSalary] = React.useState(-Infinity);
+	const [filterCity, setfilterCity] = React.useState('All');
 
 	React.useEffect(() => {
-		props.onFilter(filterTime, filterSalary);
+		props.onFilter(filterTime, filterSalary, filterCity);
 	}, [filterSalary]);
 	React.useEffect(() => {
-		props.onFilter(filterTime, filterSalary);
+		props.onFilter(filterTime, filterSalary, filterCity);
 	}, [filterTime]);
+	React.useEffect(() => {
+		props.onFilter(filterTime, filterSalary, filterCity);
+	}, [filterCity]);
 
 	const handleFilter = (e) => {
 		if (e.target.name == 'time') {
@@ -93,6 +107,9 @@ export default function Filter(props) {
 		}
 		if (e.target.name == 'salary') {
 			setfilterSalary(e.target.value);
+		}
+		if (e.target.name == 'city') {
+			setfilterCity(e.target.value);
 		}
 	};
 
@@ -131,6 +148,27 @@ export default function Filter(props) {
 							name="salary"
 						>
 							{salary.map((item) => {
+								return (
+									<MenuItem
+										value={item['value']}
+										key={item['id']}
+									>
+										{item['name']}
+									</MenuItem>
+								);
+							})}
+						</Select>
+					</FormControl>
+					<FormControl className={classes.formControl}>
+						<InputLabel id="filter-city-label">City</InputLabel>
+						<Select
+							labelId="salary-city-label"
+							id="select-city"
+							value={filterCity}
+							onChange={handleFilter}
+							name="city"
+						>
+							{cities.map((item) => {
 								return (
 									<MenuItem
 										value={item['value']}

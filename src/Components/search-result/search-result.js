@@ -15,6 +15,7 @@ export class SearchResult extends React.Component {
 			skipNormalizeRecords: 0,
 			totalRecord: 0,
 			jobsByFilter: [],
+			cities: [],
 		};
 		this.getJobs = this.getJobs.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
@@ -63,6 +64,25 @@ export class SearchResult extends React.Component {
 		return filterResult;
 	}
 
+	filterByCity(filterCity, jobForFilter) {
+		let filterResult = [];
+
+		if (filterCity == 'All') {
+			return jobForFilter;
+		}
+
+		for (let jobType in jobForFilter) {
+			filterResult.push([jobForFilter[jobType][0], []]);
+			for (let job of jobForFilter[jobType][1]) {
+				if (job['thanh_pho'] && job['thanh_pho'].trim() == filterCity) {
+					filterResult[jobType][1].push(job);
+				}
+			}
+		}
+
+		return filterResult;
+	}
+
 	filterBySalary(filterSalary, jobForFilter) {
 		let filterResult = [];
 
@@ -95,11 +115,12 @@ export class SearchResult extends React.Component {
 		return filterResult;
 	}
 
-	handleFilterChange(filterTime, filterSalary) {
+	handleFilterChange(filterTime, filterSalary, filterCity) {
 		const jobForFilter = this.state.jobs;
 
 		let filterResult = this.filterByTime(filterTime, jobForFilter);
 		filterResult = this.filterBySalary(filterSalary, filterResult);
+		filterResult = this.filterByCity(filterCity, filterResult);
 
 		this.setState({
 			jobsByFilter: filterResult,
@@ -120,6 +141,28 @@ export class SearchResult extends React.Component {
 		this.sortByDate(jobs['jobsSearchResult']);
 		this.sortByDate(jobs['jobsInRelatedSkill']);
 		this.sortByDate(jobs['jobsAfterNormalize']);
+	}
+
+	getDistinctCities(jobs) {
+		const cities = [];
+		jobs.map((item) => {
+			item[1].map((job) => {
+				if (job['thanh_pho']) {
+					cities.push(job['thanh_pho'].trim());
+				}
+			});
+		});
+		console.log(cities);
+		const distinctCities = [...new Set(cities)];
+		let cityValues = [];
+		distinctCities.map((item, idx) => {
+			cityValues.push({
+				id: idx + 1,
+				name: item,
+				value: item,
+			});
+		});
+		return cityValues;
 	}
 
 	async getJobs(
@@ -148,8 +191,10 @@ export class SearchResult extends React.Component {
 				};
 			},
 			() => {
+				let distinctCities = this.getDistinctCities(this.state.jobs);
 				this.setState({
 					jobsByFilter: [...this.state.jobs],
+					cities: distinctCities,
 				});
 			}
 		);
@@ -159,8 +204,13 @@ export class SearchResult extends React.Component {
 		return (
 			<div>
 				<Filter
-					onFilter={(filterTime, filterSalary) =>
-						this.handleFilterChange(filterTime, filterSalary)
+					cities={this.state.cities}
+					onFilter={(filterTime, filterSalary, filterCity) =>
+						this.handleFilterChange(
+							filterTime,
+							filterSalary,
+							filterCity
+						)
 					}
 				/>
 				{/* <Filter onDateChange={this.handleDateChange} onSalaryChange={this.handleSalaryChange} /> */}
