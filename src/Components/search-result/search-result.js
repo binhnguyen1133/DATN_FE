@@ -20,12 +20,13 @@ export class SearchResult extends React.Component {
 		this.handlePageChange = this.handlePageChange.bind(this);
 		this.changeDate = this.changeDate.bind(this);
 		this.handleFilterChange = this.handleFilterChange.bind(this);
+		this.sortByDate = this.sortByDate.bind(this);
+		this.sortJobs = this.sortJobs.bind(this);
 	}
 
 	async componentDidMount() {
-		console.log('componentDidMount');
 		const id = decodeURIComponent(this.props.match.params.id);
-		// console.log(this.props.match);
+
 		await this.getJobs(
 			id,
 			this.state.pageIndex,
@@ -35,7 +36,6 @@ export class SearchResult extends React.Component {
 	}
 
 	handlePageChange(newPage, skipRelatedRecords, skipNormalizeRecords) {
-		console.log('handleChangePage');
 		this.getJobs(
 			this.props.match.params.id,
 			newPage,
@@ -51,9 +51,10 @@ export class SearchResult extends React.Component {
 			filterResult.push([jobForFilter[jobType][0], []]);
 			for (let job of jobForFilter[jobType][1]) {
 				let jobStart = new Date(job['ngay_bat_dau']);
-				let dateDiff =
+				let dateDiff = Math.floor(
 					(currDate.getTime() - jobStart.getTime()) /
-					(1000 * 3600 * 24);
+						(1000 * 3600 * 24)
+				);
 				if (dateDiff <= filterTime) {
 					filterResult[jobType][1].push(job);
 				}
@@ -63,11 +64,22 @@ export class SearchResult extends React.Component {
 	}
 
 	filterBySalary(filterSalary, jobForFilter) {
-		console.log(filterSalary);
+		let filterResult = [];
+
 		if (filterSalary == -Infinity) {
 			return jobForFilter;
 		}
-		let filterResult = [];
+		if (filterSalary == Infinity) {
+			for (let jobType in jobForFilter) {
+				filterResult.push([jobForFilter[jobType][0], []]);
+				for (let job of jobForFilter[jobType][1]) {
+					if (job['luong_toi_da'] && job['luong_toi_da'] > 1500) {
+						filterResult[jobType][1].push(job);
+					}
+				}
+			}
+			return filterResult;
+		}
 		for (let jobType in jobForFilter) {
 			filterResult.push([jobForFilter[jobType][0], []]);
 			for (let job of jobForFilter[jobType][1]) {
@@ -89,8 +101,6 @@ export class SearchResult extends React.Component {
 		let filterResult = this.filterByTime(filterTime, jobForFilter);
 		filterResult = this.filterBySalary(filterSalary, filterResult);
 
-		// console.log(filterResult);
-
 		this.setState({
 			jobsByFilter: filterResult,
 		});
@@ -101,24 +111,36 @@ export class SearchResult extends React.Component {
 		return newDate.toDateString();
 	}
 
+	sortByDate(arr) {
+		arr.sort(
+			(a, b) => new Date(b['ngay_bat_dau']) - new Date(a['ngay_bat_dau'])
+		);
+	}
+	sortJobs(jobs) {
+		this.sortByDate(jobs['jobsSearchResult']);
+		this.sortByDate(jobs['jobsInRelatedSkill']);
+		this.sortByDate(jobs['jobsAfterNormalize']);
+	}
+
 	async getJobs(
 		searchKey,
 		newPage,
 		skipRelatedRecords,
 		skipNormalizeRecords
 	) {
-		console.log('getJobs');
 		const res = await fetch(
 			`${process.env.REACT_APP_API_SEARCH}?searchKey=${encodeURIComponent(
 				searchKey
 			)}&pageIndex=${newPage}&skipRelatedRecords=${skipRelatedRecords}&skipNormalizeRecords=${skipNormalizeRecords}`
 		);
 		const data = await res.json();
-		// console.log(Object.entries(data.data.data));
+		let jobs = data.data.data;
+		this.sortJobs(jobs);
+
 		this.setState(
 			function() {
 				return {
-					jobs: Object.entries(data.data.data),
+					jobs: Object.entries(jobs),
 					pageIndex: data.data.pageIndex,
 					skipRelatedRecords: data.data.skipRelatedRecords,
 					skipNormalizeRecords: data.data.skipNormalizeRecords,
@@ -134,7 +156,6 @@ export class SearchResult extends React.Component {
 	}
 
 	render() {
-		console.log('renderd');
 		return (
 			<div>
 				<Filter
@@ -145,7 +166,6 @@ export class SearchResult extends React.Component {
 				{/* <Filter onDateChange={this.handleDateChange} onSalaryChange={this.handleSalaryChange} /> */}
 				<div className="result-jobs">
 					{this.state.jobsByFilter.map((item, key) => {
-						// console.log(item);
 						if (item[1].length !== 0) {
 							return (
 								<div className="container" key={key}>
