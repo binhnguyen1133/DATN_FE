@@ -178,6 +178,11 @@ export class Header extends React.Component {
 								</li>
 							 ) : null}
 							<li>
+								<a target="_blank" href="https://datastudio.google.com/u/0/reporting/736a54bb-ce7e-4d17-a020-780b69a690f0/page/qwPMC?fbclid=IwAR2VaczHNnyinYSbAqULEVPTa-3zLWuHAKd0pbd3-AHbN1DVPTdXaNRsjGk">
+									Statistical
+								</a>
+							</li>
+							<li>
 								<Link to="/about">About us</Link>
 							</li>
 							{this.state.isLogin ? (
