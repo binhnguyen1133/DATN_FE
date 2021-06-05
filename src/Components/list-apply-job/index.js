@@ -30,19 +30,13 @@ const useRowStyles = makeStyles({
 });
 
 function Row(props) {
-  const { job, candidatesList } = props;
+  const { job, candidates, cv } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
-  const [candidates, setCandidates] = useState(candidatesList);
-
-  const handleCandidateList = () => {
-    let newCandidate = [];
-    for (let i = 0; i< candidates; i++){
-      if(job.ma_cong_viec === candidates[i].ma_cong_viec)
-        newCandidate.push(candidates[i]);
-    }
-    return setCandidates(newCandidate);
+  const handleClick = () => {
+    console.log(cv);
+    return alert(cv);
   }
 
   return (
@@ -76,7 +70,7 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {candidatesList.map((candidate) => (
+                  {candidates.map((candidate) => (
                     <TableRow key={candidate.apply_id}>
                       <TableCell component="th" scope="row">
                         {candidate.ten_ung_vien}
@@ -84,7 +78,7 @@ function Row(props) {
                       <TableCell>{candidate.sdt}</TableCell>
                       <TableCell align="right">{candidate.email}</TableCell>
                       <TableCell align="right" >
-                        <Link to={{pathname: `${candidate.cv_url}`}}>Preview</Link>
+                        <button onClick={handleClick}>Preview CV</button>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -101,6 +95,7 @@ function Row(props) {
 export function ListApplyJob(props) {
     const [jobs, setJobs] = useState([]);
     const [candidates, setCandidates] = useState([]);
+    const [cv, setCv] = useState();
 
     useEffect(()=>{
         axios.get('https://localhost:44367/api/v1/companies/candidates', {headers: {Authorization: localStorage.getItem("token")}})
@@ -130,24 +125,34 @@ export function ListApplyJob(props) {
           })
     },[]);
 
+    useEffect(()=>{
+      axios.get('https://localhost:44367/api/v1/companies/candidate/cv/1', {headers: {Authorization: localStorage.getItem("token")}})
+        .then(response =>{
+          setCv(response.data);
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+    },[])
+
     return (
         <div className="list-apply-job">
-            <TableContainer component={Paper} className="table">
-            <Table aria-label="collapsible table">
+        <TableContainer component={Paper} className="table">
+          <Table aria-label="collapsible table">
             <TableHead>
                 <TableRow>
-                <TableCell />
-                <TableCell>Jobs name</TableCell>
-                <TableCell align="right">Start Date</TableCell>
-                <TableCell align="right">End Date</TableCell>
+                  <TableCell />
+                  <TableCell>Jobs name</TableCell>
+                  <TableCell align="right">Start Date</TableCell>
+                  <TableCell align="right">End Date</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
               {jobs.map((job) => (
-                <Row job={job} candidatesList={candidates} key={job.ma_cong_viec}/>
+                <Row job={job} key={job.ma_cong_viec} candidates={candidates} cv={cv}/>
               ))} 
             </TableBody>
-            </Table>
+          </Table>
         </TableContainer>
       </div>
     );
