@@ -13,6 +13,7 @@ import { SignUpComponent } from '../Components/signup/signup.js';
 import { UserProfile } from '../Components/user-profile/user-profile.js';
 import { ApplyJob } from '../Components/apply-job/apply-job.js';
 import {ListApplyJob} from '../Components/list-apply-job/index.js';
+import {ApproveJob} from '../Components/approve-job/approve.js';
 
 export {
 	Login,
@@ -29,5 +30,6 @@ export {
 	SignUpComponent,
 	UserProfile,
 	ApplyJob,
-	ListApplyJob
+	ListApplyJob,
+	ApproveJob
 };
