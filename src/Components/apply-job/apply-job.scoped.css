@@ -1,0 +1,36 @@
+.apply-job {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.heading {
+    font-weight: bold;
+}
+
+.form {
+    width: 50vw;
+    margin: 10px 0px 20px;
+}
+
+.form-top .form div #outlined-basic-1{
+    padding-left: 20px !important;
+}
+
+.submit-btn {
+    line-height: 40px;
+}
+
+input {
+    cursor: pointer;
+}
+
+#contained-button-file {
+    margin-bottom: 20px;
+}

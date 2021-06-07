@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale';
 import {
 	Login,
 	CreateJob,
@@ -7,8 +8,12 @@ import {
 	About,
 	SignUpComponent,
 	UserProfile,
-	CreateCV
+	CreateCV,
+	ApplyJob,
+	ListApplyJob,
+	ApproveJob
 } from '../Barrel/index.js';
+
 const routes = [
 	{
 		path: '/',
@@ -45,6 +50,18 @@ const routes = [
 	{
 		path: '/create-cv',
 		component: CreateCV,
+	},
+	{
+		path: '/apply-job/:id',
+		component: ApplyJob,
+	},
+	{
+		path: '/manage-job',
+		component: ListApplyJob
+	},
+	{
+		path: '/job/approve',
+		component: ApproveJob
 	}
 ];
 
