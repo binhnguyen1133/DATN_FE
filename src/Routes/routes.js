@@ -8,6 +8,7 @@ import {
 	About,
 	SignUpComponent,
 	UserProfile,
+	CreateCV,
 	ApplyJob,
 	ListApplyJob,
 	ApproveJob
@@ -45,6 +46,10 @@ const routes = [
 	{
 		path: '/my-account',
 		component: UserProfile,
+	},
+	{
+		path: '/create-cv',
+		component: CreateCV,
 	},
 	{
 		path: '/apply-job/:id',

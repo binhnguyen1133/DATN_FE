@@ -47,19 +47,17 @@ export class JobDetail extends React.Component {
 	}
 
 	groupSkill(job) {
-		if (job.length > 1) {
-			var array = [];
-			let groupSkillJob;
-			_.forEach(job, function(j) {
-				array = _.concat(array, j.ten_skill);
-			});
-			job[0].ten_skill = array;
-			groupSkillJob = job[0];
-			return groupSkillJob;
-		} else {
-			return job;
-		}
-	}
+        let groupSkillJob;
+        if ((job.length > 1)) {
+            var array = [];
+            _.forEach(job, function (j) {
+                array = _.concat(array, j.ten_skill)
+            })
+            job[0].ten_skill = array;
+        }
+        groupSkillJob = job[0];
+        return groupSkillJob;
+    }
 
 	render() {
 		return (
