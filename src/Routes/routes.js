@@ -7,6 +7,7 @@ import {
 	About,
 	SignUpComponent,
 	UserProfile,
+	CreateCV
 } from '../Barrel/index.js';
 const routes = [
 	{
@@ -40,6 +41,10 @@ const routes = [
 	{
 		path: '/my-account',
 		component: UserProfile,
+	},
+	{
+		path: '/create-cv',
+		component: CreateCV,
 	}
 ];
 
