@@ -14,7 +14,7 @@ export class SearchResult extends React.Component {
 			pageIndex: 0,
 			skipRelatedRecords: 0,
 			skipNormalizeRecords: 0,
-			totalRecord: 0,
+			totalRecord: null,
 			jobsByFilter: [],
 			cities: [],
 			selectedTime: Infinity,
@@ -213,13 +213,35 @@ export class SearchResult extends React.Component {
 					this.state.SelectedSalary,
 					this.state.selectedCity
 				);
-				window.scrollTo(0, 200);
+				window.scrollTo(0, 0);
 				console.log('Scroll to top');
 			}
 		);
 	}
 
 	render() {
+		if (this.state.totalRecord == null) {
+			return (
+				<div className="d-flex justify-content-center mt-5">
+					<div
+						className="spinner-border text-dark"
+						style={{ width: '10rem', height: '10rem' }}
+						role="status"
+					>
+						<span className="sr-only">Loading...</span>
+					</div>
+				</div>
+			);
+		}
+		if (this.state.totalRecord === 0) {
+			return (
+				<div>
+					<h1 style={{ textAlign: 'center', marginBottom: '30px' }}>
+						NOT FOUND ANY RESULTS
+					</h1>
+				</div>
+			);
+		}
 		return (
 			<div>
 				<Filter
@@ -247,6 +269,8 @@ export class SearchResult extends React.Component {
 													return 'Jobs Related';
 												case 'jobsAfterNormalize':
 													return 'Job Normalize';
+												default:
+													return null;
 											}
 										})()}
 									</h1>
