@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { Pagination } from '../../Barrel/index.js';
 import Filter from '../filter/filter.js';
@@ -41,7 +42,7 @@ export class SearchResult extends React.Component {
 
 	handlePageChange(newPage, skipRelatedRecords, skipNormalizeRecords) {
 		this.getJobs(
-			this.props.match.params.id,
+			decodeURIComponent(this.props.match.params.id),
 			newPage,
 			skipRelatedRecords,
 			skipNormalizeRecords
@@ -177,10 +178,15 @@ export class SearchResult extends React.Component {
 		skipRelatedRecords,
 		skipNormalizeRecords
 	) {
+		const params = {
+			searchKey: searchKey,
+			pageIndex: newPage,
+			skipRelatedRecords: skipRelatedRecords,
+			skipNormalizeRecords: skipNormalizeRecords,
+		};
+		const query = new URLSearchParams(params).toString();
 		const res = await fetch(
-			`${process.env.REACT_APP_API_SEARCH}?searchKey=${encodeURIComponent(
-				searchKey
-			)}&pageIndex=${newPage}&skipRelatedRecords=${skipRelatedRecords}&skipNormalizeRecords=${skipNormalizeRecords}`
+			`${process.env.REACT_APP_API_SEARCH}/?${query}`
 		);
 		const data = await res.json();
 		let jobs = data.data.data;
