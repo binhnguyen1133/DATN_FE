@@ -16,6 +16,9 @@ export class SearchResult extends React.Component {
 			totalRecord: 0,
 			jobsByFilter: [],
 			cities: [],
+			selectedTime: Infinity,
+			SelectedSalary: -Infinity,
+			selectedCity: 'All',
 		};
 		this.getJobs = this.getJobs.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
@@ -124,6 +127,9 @@ export class SearchResult extends React.Component {
 
 		this.setState({
 			jobsByFilter: filterResult,
+			selectedTime: filterTime,
+			SelectedSalary: filterSalary,
+			selectedCity: filterCity,
 		});
 	}
 
@@ -196,6 +202,13 @@ export class SearchResult extends React.Component {
 					jobsByFilter: [...this.state.jobs],
 					cities: distinctCities,
 				});
+				this.handleFilterChange(
+					this.state.selectedTime,
+					this.state.SelectedSalary,
+					this.state.selectedCity
+				);
+				window.scrollTo(0, 200);
+				console.log('Scroll to top');
 			}
 		);
 	}
