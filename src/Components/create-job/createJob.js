@@ -83,9 +83,15 @@ export class CreateJob extends React.Component {
 					this.setState({
 						addJobSuccess: true,
 					});
+					this.setState({
+						addJobFail: false,
+					});
 				} else {
 					this.setState({
 						addJobFail: true,
+					});
+					this.setState({
+						addJobSuccess: false,
 					});
 				}
 			} else {

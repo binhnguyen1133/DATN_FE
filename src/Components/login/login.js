@@ -97,19 +97,22 @@ export class Login extends Component {
 	async handleSubmit(event) {
 		try {
 			event.preventDefault();
+			const loginInfo = {
+				email: this.state.email,
+				password: this.state.password,
+			};
 			const response = await fetch(process.env.REACT_APP_API_LOGIN, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(this.state),
+				body: JSON.stringify(loginInfo),
 			});
 			const data = await response.json();
 			if (data['code'] === 200) {
 				localStorage.setItem('token', data['data']);
 				window.location.pathname = '/';
-			}
-			if (data['code'] === 203) {
+			} else if (data['code'] === 203) {
 				this.setState({ logginFailMessage: data['error'] });
 			} else {
 				this.setState({

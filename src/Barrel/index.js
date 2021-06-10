@@ -11,8 +11,10 @@ import { Pagination } from '../Components/Pagination/pagination.js';
 import { About } from '../Components/About/about.js';
 import { SignUpComponent } from '../Components/signup/signup.js';
 import { UserProfile } from '../Components/user-profile/user-profile.js';
+import { CreateCV } from '../Components/create-cv/create-cv.js';
 import { ApplyJob } from '../Components/apply-job/apply-job.js';
 import {ListApplyJob} from '../Components/list-apply-job/index.js';
+import {ApproveJob} from '../Components/approve-job/approve.js';
 
 export {
 	Login,
@@ -28,6 +30,8 @@ export {
 	About,
 	SignUpComponent,
 	UserProfile,
+	CreateCV,
 	ApplyJob,
-	ListApplyJob
+	ListApplyJob,
+	ApproveJob
 };

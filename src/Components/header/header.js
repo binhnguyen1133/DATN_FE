@@ -33,6 +33,11 @@ export class Header extends React.Component {
 					role: 'kh',
 				});
 			}
+			if (Object.keys(account).indexOf('role') > -1 && account['role'] == 3) {
+				this.setState({
+					role: 'admin',
+				});
+			}
 		}
 
 		this.checkLogin();
@@ -167,6 +172,11 @@ export class Header extends React.Component {
 							<li>
 								<Link to='/'>Home</Link>
 							</li>
+							{this.state.role === 'admin' ? (
+								<li>
+									<Link to="/job/approve">Approve job</Link>
+								</li>
+							) : null}
 							{this.state.role === 'dn' ? (
 								<li>
 									<Link to="/create/job">Post a job</Link>

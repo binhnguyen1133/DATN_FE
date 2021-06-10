@@ -8,8 +8,10 @@ import {
 	About,
 	SignUpComponent,
 	UserProfile,
+	CreateCV,
 	ApplyJob,
-	ListApplyJob
+	ListApplyJob,
+	ApproveJob
 } from '../Barrel/index.js';
 
 const routes = [
@@ -46,12 +48,20 @@ const routes = [
 		component: UserProfile,
 	},
 	{
+		path: '/create-cv',
+		component: CreateCV,
+	},
+	{
 		path: '/apply-job/:id',
 		component: ApplyJob,
 	},
 	{
 		path: '/manage-job',
 		component: ListApplyJob
+	},
+	{
+		path: '/job/approve',
+		component: ApproveJob
 	}
 ];
 

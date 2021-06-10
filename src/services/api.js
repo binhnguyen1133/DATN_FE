@@ -79,6 +79,32 @@ async function register(userInfo) {
 	return res;
 }
 
+async function getApproveList() {
+	const url = process.env.REACT_APP_API_REQUEST_JOB;
+	const method = 'GET';
+	const token = getToken();
+	const headers = {
+		'Content-type': 'application/json',
+		authorization: token,
+	};
+	const res = await request(url, method, null, headers);
+	return res;
+}
+
+async function approveJob(request_id) {
+	const url = `${
+		process.env.REACT_APP_API_APPROVE_JOB
+	}/?request_id=${request_id}`;
+	const method = 'GET';
+	const token = getToken();
+	const headers = {
+		'Content-type': 'application/json',
+		authorization: token,
+	};
+	const res = await request(url, method, null, headers);
+	return res;
+}
+
 export {
 	loginToken,
 	addJob,
@@ -86,4 +112,6 @@ export {
 	getSkillSuggestion,
 	getToken,
 	register,
+	getApproveList,
+	approveJob,
 };

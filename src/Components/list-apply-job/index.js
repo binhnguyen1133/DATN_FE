@@ -42,17 +42,6 @@ function Row(props) {
 
   // console.log(candidates);
 
-  // lấy cv của ứng viên apply vào job
-  // useEffect(()=>{
-  //   axios.get(`${process.env.REACT_APP_API_CANDIDATE_CV}/${candidates.apply_id}`, {headers: {Authorization: localStorage.getItem("token")}})
-  //     .then(response =>{
-  //       setCv(response.data);
-  //     })
-  //     .catch((error)=>{
-  //       console.log(error);
-  //     })
-  // },[])
-
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -116,7 +105,7 @@ export function ListApplyJob(props) {
     useEffect(()=>{
       axios.get(process.env.REACT_APP_API_COMPANY_JOBS, {headers: {Authorization: localStorage.getItem("token")}})
       .then(response =>{
-        // console.log(response);
+        // console.log(response.data.data);
         setJobs(response.data.data);
       })
       .catch(function (error) {
@@ -128,7 +117,7 @@ export function ListApplyJob(props) {
     useEffect(()=>{
         axios.get(process.env.REACT_APP_API_JOB_CANDIDATES, {headers: {Authorization: localStorage.getItem("token")}})
           .then(response =>{
-              // console.log(response);
+              console.log(response.data.data);
               setCandidates(response.data.data);
             })
           .catch(function (error) {
