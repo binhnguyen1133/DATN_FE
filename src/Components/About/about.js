@@ -16,7 +16,7 @@ export class About extends React.Component {
               </div>
               <div class="col-lg-6 d-none d-lg-block">
                 <img
-                  src="https://res.cloudinary.com/mhmd/image/upload/v1556834136/illus_kftyh4.png"
+                  src="https://lh3.googleusercontent.com/proxy/2_IECfP2vkZFH7jeNZRLreg-jORYCLflr0Vrvz_maTcoPlt3RA_DBtknEwJgFRq50DtXOwmFJlZ2BaIDyHUL_JdvYe-8u_xBd5Tj-dvk"
                   alt=""
                   class="img-fluid"
                 />
@@ -53,14 +53,19 @@ export class About extends React.Component {
                   <ul class="social mb-0 list-inline mt-3">
                     <li class="list-inline-item">
                       <a
-                        href="https://www.facebook.com/130199ddv"
+                        href="https://www.facebook.com/130199ddv" 
+                        target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-facebook-f" />
                       </a>
                     </li>
                     <li class="list-inline-item">
-                      <a href="https://github.com/voducdan" class="social-link">
+                      <a 
+                        href="https://github.com/voducdan" 
+                        target="_blank"
+                        class="social-link"
+                      >
                         <i class="fab fa-git-alt" />
                       </a>
                     </li>
@@ -84,7 +89,8 @@ export class About extends React.Component {
                   <ul class="social mb-0 list-inline mt-3">
                     <li class="list-inline-item">
                       <a
-                        href="https://www.facebook.com/profile.php?id=100013805671675"
+                        href="https://www.facebook.com/minhtri.thach.2" 
+                        target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-facebook-f" />
@@ -92,7 +98,8 @@ export class About extends React.Component {
                     </li>
                     <li class="list-inline-item">
                       <a
-                        href="https://github.com/ToHoangTrung"
+                        href="https://github.com/minhtrithach" 
+                        target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-git-alt" />
@@ -118,7 +125,8 @@ export class About extends React.Component {
                   <ul class="social mb-0 list-inline mt-3">
                     <li class="list-inline-item">
                       <a
-                        href="https://www.facebook.com/tychuot.bltt"
+                        href="https://www.facebook.com/nguyenquang.binh.718/" 
+                        target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-facebook-f" />
@@ -126,7 +134,8 @@ export class About extends React.Component {
                     </li>
                     <li class="list-inline-item">
                       <a
-                        href="https://github.com/tantoanhk13"
+                        href="https://github.com/binhnguyen1133" 
+                        target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-git-alt" />
@@ -152,7 +161,8 @@ export class About extends React.Component {
                   <ul class="social mb-0 list-inline mt-3">
                     <li class="list-inline-item">
                       <a
-                        href="https://www.facebook.com/nguyenquang.binh.718"
+                        href="https://www.facebook.com/profile.php?id=100005443237924" 
+                        target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-facebook-f" />
@@ -160,7 +170,7 @@ export class About extends React.Component {
                     </li>
                     <li class="list-inline-item">
                       <a
-                        href="https://github.com/binhnguyen1133"
+                        href="https://github.com/ngtranhtuan99" target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-git-alt" />
@@ -186,14 +196,18 @@ export class About extends React.Component {
                   <ul class="social mb-0 list-inline mt-3">
                     <li class="list-inline-item">
                       <a
-                        href="https://www.facebook.com/130199ddv"
+                        href="https://www.facebook.com/thanhdanh2802"
                         class="social-link"
                       >
                         <i class="fab fa-facebook-f" />
                       </a>
                     </li>
                     <li class="list-inline-item">
-                      <a href="https://github.com/voducdan" class="social-link">
+                      <a 
+                        href="https://github.com/ttdanh282" 
+                        target="_blank"
+                        class="social-link"
+                      >
                         <i class="fab fa-git-alt" />
                       </a>
                     </li>
@@ -209,7 +223,7 @@ export class About extends React.Component {
                     width="100"
                     class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"
                   />
-                  <h5 class="mb-0">Vữ Văn Đạt</h5>
+                  <h5 class="mb-0">Vũ Văn Đạt</h5>
                   <span class="small text-uppercase text-muted">TESTER</span>
                   <span class="small text-uppercase text-muted">
                     MSSV: 1712339 
@@ -217,14 +231,19 @@ export class About extends React.Component {
                   <ul class="social mb-0 list-inline mt-3">
                     <li class="list-inline-item">
                       <a
-                        href="https://www.facebook.com/130199ddv"
+                        href="https://www.facebook.com/datvustar"
+                        target="_blank"
                         class="social-link"
                       >
                         <i class="fab fa-facebook-f" />
                       </a>
                     </li>
                     <li class="list-inline-item">
-                      <a href="https://github.com/voducdan" class="social-link">
+                      <a 
+                        href="#" 
+                        target="_blank"
+                        class="social-link"
+                      >
                         <i class="fab fa-git-alt" />
                       </a>
                     </li>

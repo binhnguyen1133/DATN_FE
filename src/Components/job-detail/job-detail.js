@@ -75,7 +75,7 @@ export class JobDetail extends React.Component {
 
                                 <p>- Medical / Health Jobs <br /> - London <br /> - 20-06-2020  <br />  - Contract</p>
                                 <Link 
-                                    to={{ pathname: `/apply-job/${this.state.job.ma_cong_viec}`, query: {ma_doanh_nghiep: this.state.job.ma_doanh_nghiep, ma_cong_viec: this.state.job.ma_cong_viec}}} 
+                                    to={{ pathname: `/apply-job/${qs.parse(this.props.location.search).ma_cv}`, query: {ma_doanh_nghiep: qs.parse(this.props.location.search).ma_dn, ma_cong_viec: qs.parse(this.props.location.search).ma_cv}}} 
                                     className="button primary" 
                                 >
                                     Apply for this job

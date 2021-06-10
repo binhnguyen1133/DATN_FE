@@ -16,6 +16,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './list-apply-job.scoped.css';
 import {Link} from 'react-router-dom'
+import CV from './get-cv';
+import { indexOf, set } from 'lodash';
 
 ListApplyJob.propTypes = {
     
@@ -30,14 +32,26 @@ const useRowStyles = makeStyles({
 });
 
 function Row(props) {
-  const { job, candidates, cv } = props;
+  const { job, candidates } = props;
+  const [cv, setCv] = useState();
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
-  const handleClick = () => {
-    console.log(cv);
-    return alert(cv);
-  }
+  console.log(job);
+  console.log(candidates);
+
+  // console.log(candidates);
+
+  // lấy cv của ứng viên apply vào job
+  // useEffect(()=>{
+  //   axios.get(`${process.env.REACT_APP_API_CANDIDATE_CV}/${candidates.apply_id}`, {headers: {Authorization: localStorage.getItem("token")}})
+  //     .then(response =>{
+  //       setCv(response.data);
+  //     })
+  //     .catch((error)=>{
+  //       console.log(error);
+  //     })
+  // },[])
 
   return (
     <React.Fragment>
@@ -78,7 +92,7 @@ function Row(props) {
                       <TableCell>{candidate.sdt}</TableCell>
                       <TableCell align="right">{candidate.email}</TableCell>
                       <TableCell align="right" >
-                        <button onClick={handleClick}>Preview CV</button>
+                        <CV apply_id={candidate.apply_id}/>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -93,50 +107,73 @@ function Row(props) {
 }
 
 export function ListApplyJob(props) {
+    console.log("render");
     const [jobs, setJobs] = useState([]);
     const [candidates, setCandidates] = useState([]);
-    const [cv, setCv] = useState();
+    const [jobCandidates, setJobCandidates] = useState([]);
 
+    // lấy danh sách job của doanh nghiệp
     useEffect(()=>{
-        axios.get('https://localhost:44367/api/v1/companies/candidates', {headers: {Authorization: localStorage.getItem("token")}})
+      axios.get(process.env.REACT_APP_API_COMPANY_JOBS, {headers: {Authorization: localStorage.getItem("token")}})
+      .then(response =>{
+        // console.log(response);
+        setJobs(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    },[]);
+    
+    // lấy danh sách ứng viên của một job
+    useEffect(()=>{
+        axios.get(process.env.REACT_APP_API_JOB_CANDIDATES, {headers: {Authorization: localStorage.getItem("token")}})
           .then(response =>{
               // console.log(response);
               setCandidates(response.data.data);
             })
-          .then(()=>{
-            console.log(candidates);
-          })
           .catch(function (error) {
             console.log(error);
           })
     },[]);
 
-    useEffect(()=>{
-        axios.get('https://localhost:44367/api/v1/companies/jobs', {headers: {Authorization: localStorage.getItem("token")}})
-          .then(response =>{
-              // console.log(response);
-              setJobs(response.data.data);
-          })
-          .then(()=>{
-              // console.log(jobs);
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-    },[]);
+  // kiểm tra job nào có ai apply
+  const checkJob = () => {
+    const arrJobs = [];
+    let arrCandidates = [];
+    jobs.forEach(job =>{
+      candidates.forEach(candidate =>{
+        if(candidate.ma_cong_viec === job.ma_cong_viec && arrJobs.indexOf(job) === -1){
+          arrCandidates.push(candidate);
+          // setCandidates(arrCandidates);
+          arrJobs.push(job);
+          // setJobs(arrJobs);
+        }
+      })
+    })
+    return arrJobs;
+  }
 
-    useEffect(()=>{
-      axios.get('https://localhost:44367/api/v1/companies/candidate/cv/1', {headers: {Authorization: localStorage.getItem("token")}})
-        .then(response =>{
-          setCv(response.data);
-        })
-        .catch((error)=>{
-          console.log(error);
-        })
-    },[])
+  const checkCandidates = () => {
+    const arrJobs = [];
+    let arrCandidates = [];
+    jobs.forEach(job =>{
+      candidates.forEach(candidate =>{
+        if(candidate.ma_cong_viec === job.ma_cong_viec){
+          arrCandidates.push(candidate);
+          // setCandidates(arrCandidates);
+          arrJobs.push(job);
+          // setJobs(arrJobs);
+        }
+      })
+    })
+    return arrCandidates;
+  }
+
+  // console.log(checkJobCandidates());
 
     return (
         <div className="list-apply-job">
+        <h1>LIST APPLY JOBS</h1>
         <TableContainer component={Paper} className="table">
           <Table aria-label="collapsible table">
             <TableHead>
@@ -148,8 +185,8 @@ export function ListApplyJob(props) {
                 </TableRow>
             </TableHead>
             <TableBody>
-              {jobs.map((job) => (
-                <Row job={job} key={job.ma_cong_viec} candidates={candidates} cv={cv}/>
+              {checkJob().map((job) => (
+                <Row job={job} key={job.ma_cong_viec} candidates={checkCandidates()}/>
               ))} 
             </TableBody>
           </Table>
