@@ -1,7 +1,36 @@
 import React from "react";
 import "./home.scoped.css";
+import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 export class Home extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      jobsPopular: [],
+    }
+    this.changeDate = this.changeDate.bind(this);
+  }
+  
+  componentDidMount(){
+    axios.get(`${process.env.REACT_APP_API_POPULAR}`)
+      .then(response =>{
+          // console.log(response.data.data);
+          this.setState({
+            jobsPopular: response.data.data
+          })
+      })
+      .then(()=>{console.log(this.state.jobsPopular)})
+      .catch((error)=>{
+          console.log(error);
+      })
+  }
+
+  changeDate(date) {
+		var newDate = new Date(date);
+		return newDate.toDateString();
+	}
+
   render() {
     return (
       <div>
@@ -79,10 +108,7 @@ export class Home extends React.Component {
             <header id="inner">
               <h1>Find your perfect job!</h1>
               <p>
-                Etiam quis viverra lorem, in semper lorem. Sed nisl arcu euismod
-                sit amet nisi euismod sed cursus arcu elementum ipsum arcu
-                vivamus quis venenatis orci lorem ipsum et magna feugiat
-                veroeros aliquam. Lorem ipsum dolor sit amet nullam dolore.
+                Cung cấp giải pháp tiện lợi, giúp mọi người tiếp cận được các công việc phù hợp với bản thân cũng như theo dõi được sự thay đổi của nhu cầu thị trường trong tương lai
               </p>
             </header>
 
@@ -91,202 +117,29 @@ export class Home extends React.Component {
             <h2 className="contact">FEATURED JOBS</h2>
 
             <section className="tiles">
-              <article className="style1">
-                <span className="image">
-                  <img
-                    src="https://img.etimg.com/thumb/msid-72286577,width-300,imgsize-97853,,resizemode-4,quality-100/jobs-hiring-agencies.jpg"
-                    alt=""
-                  />
-                </span>
-                <a href="job-details.html">
-                  <h2>Lorem ipsum dolor sit amet, consectetur</h2>
+              {this.state.jobsPopular.map((job) =>{
+                return(
+                    <article className="style1" key={job.ma_cong_viec}>
+                      <span className="image">
+                        <img
+                          src="https://img.etimg.com/thumb/msid-72286577,width-300,imgsize-97853,,resizemode-4,quality-100/jobs-hiring-agencies.jpg"
+                          alt=""
+                        />
+                      </span>
+                      <Link to={`/job/?ma_dn=${job.ma_doanh_nghiep}&ma_cv=${job.ma_cong_viec}`}>
+                        <h2>{job.ten_cong_viec}</h2>
+                        <p>
+                          <strong>{job.luong_toi_da ? job.luong_toi_da+'$' : `You'll love it.`}</strong>
+                        </p>
 
-                  <p>
-                    <strong>$60 000</strong>
-                  </p>
-
-                  <p>
-                    <i className="fa fa-calendar" /> 15-06-2020
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-file" /> Contract
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-map-marker" /> London
-                  </p>
-                </a>
-              </article>
-              <article className="style2">
-                <span className="image">
-                  <img
-                    src="https://img.etimg.com/thumb/msid-72286577,width-300,imgsize-97853,,resizemode-4,quality-100/jobs-hiring-agencies.jpg"
-                    alt=""
-                  />
-                </span>
-                <a href="job-details.html">
-                  <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-
-                  <p>
-                    <strong>$60 000</strong>
-                  </p>
-
-                  <p>
-                    <i className="fa fa-calendar" /> 15-06-2020
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-file" /> Contract
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-map-marker" /> London
-                  </p>
-                </a>
-              </article>
-              <article className="style3">
-                <span className="image">
-                  <img
-                    src="https://img.etimg.com/thumb/msid-72286577,width-300,imgsize-97853,,resizemode-4,quality-100/jobs-hiring-agencies.jpg"
-                    alt=""
-                  />
-                </span>
-                <a href="job-details.html">
-                  <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-
-                  <p>
-                    <strong>$60 000</strong>
-                  </p>
-
-                  <p>
-                    <i className="fa fa-calendar" /> 15-06-2020
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-file" /> Contract
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-map-marker" /> London
-                  </p>
-                </a>
-              </article>
-
-              <article className="style4">
-                <span className="image">
-                  <img
-                    src="https://img.etimg.com/thumb/msid-72286577,width-300,imgsize-97853,,resizemode-4,quality-100/jobs-hiring-agencies.jpg"
-                    alt=""
-                  />
-                </span>
-                <a href="job-details.html">
-                  <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-
-                  <p>
-                    <strong>$60 000</strong>
-                  </p>
-
-                  <p>
-                    <i className="fa fa-calendar" /> 15-06-2020
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-file" /> Contract
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-map-marker" /> London
-                  </p>
-                </a>
-              </article>
-
-              <article className="style5">
-                <span className="image">
-                  <img
-                    src="https://img.etimg.com/thumb/msid-72286577,width-300,imgsize-97853,,resizemode-4,quality-100/jobs-hiring-agencies.jpg"
-                    alt=""
-                  />
-                </span>
-                <a href="job-details.html">
-                  <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-
-                  <p>
-                    <strong>$60 000</strong>
-                  </p>
-
-                  <p>
-                    <i className="fa fa-calendar" /> 15-06-2020
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-file" /> Contract
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-map-marker" /> London
-                  </p>
-                </a>
-              </article>
-
-              <article className="style6">
-                <span className="image">
-                  <img
-                    src="https://img.etimg.com/thumb/msid-72286577,width-300,imgsize-97853,,resizemode-4,quality-100/jobs-hiring-agencies.jpg"
-                    alt=""
-                  />
-                </span>
-                <a href="job-details.html">
-                  <h2>Lorem ipsum dolor sit amet, consectetur</h2>
-
-                  <p>
-                    <strong>$60 000</strong>
-                  </p>
-
-                  <p>
-                    <i className="fa fa-calendar" /> 15-06-2020
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-file" /> Contract
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i className="fa fa-map-marker" /> London
-                  </p>
-                </a>
-              </article>
+                        <p>
+                          <i className="fa fa-calendar" /> {this.changeDate(job.ngay_bat_dau)}
+                        </p>
+                      </Link>
+                    </article>
+                  )
+              })}
             </section>
-
-            <p className="text-center">
-              <a href="jobs.html">
-                View Jobs &nbsp;
-                <i className="fa fa-long-arrow-right" />
-              </a>
-            </p>
-
-            <br />
-
-            <h2 className="h2">Testimonials</h2>
-
-            <div className="row">
-              <div className="col-sm-6 text-center">
-                <p className="m-n">
-                  <em>
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Sunt delectus mollitia, debitis architecto recusandae?
-                    Quidem ipsa, quo, labore minima enim similique, delectus
-                    ullam non laboriosam laborum distinctio repellat quas
-                    deserunt voluptas reprehenderit dignissimos voluptatum
-                    deleniti saepe. Facere expedita autem quos."
-                  </em>
-                </p>
-
-                <p>
-                  <strong> - John Doe</strong>
-                </p>
-              </div>
-
-              <div className="col-sm-6 text-center">
-                <p className="m-n">
-                  <em>
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Sunt delectus mollitia, debitis architecto recusandae?
-                    Quidem ipsa, quo, labore minima enim similique, delectus
-                    ullam non laboriosam laborum distinctio repellat quas
-                    deserunt voluptas reprehenderit dignissimos voluptatum
-                    deleniti saepe. Facere expedita autem quos."
-                  </em>
-                </p>
-
-                <p>
-                  <strong>- John Doe</strong>{" "}
-                </p>
-              </div>
-            </div>
-
-            <p className="text-center">
-              <a href="testimonials.html">
-                Read More &nbsp;
-                <i className="fa fa-long-arrow-right" />
-              </a>
-            </p>
             <br />
           </div>
         </div>
