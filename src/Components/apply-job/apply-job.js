@@ -74,7 +74,7 @@ export function ApplyJob(props) {
         formData.append('ma_cong_viec', macv);
         formData.append('cv', cv, cv.name);
         // console.log(process.env.REACT_APP_API_APPLY_JOB);
-        axios.post(`${process.env.REACT_APP_API_APPLY_JOB}${macv}`, formData);
+        axios.post(`${process.env.REACT_APP_API_APPLY_JOB}`, formData);
     }
 
     return (
