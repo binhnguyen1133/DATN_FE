@@ -20,6 +20,7 @@ export class JobDetail extends React.Component {
 
 	componentDidMount() {
 		const queryParams = qs.parse(this.props.location.search);
+		if(queryParams.ma_dn != "undefined") {
 		fetch(
 			`${process.env.REACT_APP_API_JOB_DETAIL}?ma_dn=${
 				queryParams.ma_dn
@@ -44,6 +45,31 @@ export class JobDetail extends React.Component {
 					});
 				}
 			);
+		}
+		if(queryParams.ma_dn === "undefined") {
+			fetch(
+				`https://www.timkiemvieclam.tech/api/v1/jobs/${queryParams.ma_cv}`
+			)
+				.then((res) => res.json())
+				.then(
+					(result) => {
+						this.setState({
+							isLoaded: true,
+							job: result.data,
+						});
+						console.log(this.state.job);
+					},
+					// Note: it's important to handle errors here
+					// instead of a catch() block so that we don't swallow
+					// exceptions from actual bugs in components.
+					(error) => {
+						this.setState({
+							isLoaded: true,
+							error,
+						});
+					}
+				);
+			}
 	}
 
 	groupSkill(job) {

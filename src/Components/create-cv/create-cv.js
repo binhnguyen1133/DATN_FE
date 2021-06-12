@@ -1,53 +1,97 @@
 import React from 'react';
+import $ from 'jquery';
 import './create-cv.scoped.css';
 
 export class CreateCV extends React.Component {
+    constructor(props) {
+		super(props);
+        this.addInputSkill = this.addInputSkill.bind(this);
+        this.removeInputSkill = this.removeInputSkill.bind(this);
+        this.addInputTech = this.addInputTech.bind(this);
+        this.removeInputTech = this.removeInputTech.bind(this);
+        this.addExperience = this.addExperience.bind(this);
+        this.removeExperience = this.removeExperience.bind(this);
+	}
+
+    addInputSkill() {
+        var new_input = "<li style='margin: 6px 6px 0 0' className='newInputSkill' id='newInputSkill'><input type='text' placeholder='Kĩ năng'></li>";
+        $('#skills').append(new_input);
+    } 
+
+    removeInputSkill() {
+        $('#newInputSkill').remove();
+    } 
+
+    addInputTech() {
+        var new_input = "<li style='margin: 6px 6px 0 0' className='newInputTech' id='newInputTech'><input type='text' placeholder='Kĩ năng'></li>";
+        $('#technologies').append(new_input);
+    } 
+
+    removeInputTech() {
+        $('#newInputTech').remove();
+    } 
+
+    addExperience() {
+        var new_input = "<li id='newExperience'><input type='text' name='newExperience'  placeholder='Tên công việc'></input><textarea id='w3review' name='w3review' rows='4' cols='70' placeholder='Mô tả'></textarea></li>";
+        $('#experience').append(new_input);
+    }
+
+    removeExperience() {
+        $('#newExperience').remove();
+    }
+
 render() {
     return (
         <form>
+            
         <section id="save">
         <section class="sheet">
-            <aside>
+            <aside style={{width: "30%"}}>
                 <section class="contact">
                     <h6>Contact</h6>
                     <ul>
                         <li>
-                            <p><i class="fa fa-map-marker-alt" title="Location"></i> San Francisco, CA</p>
+                            <span><i class="fa fa-map-marker-alt" title="Location"></i></span>
+                            <input type="text" name="address" id="address" placeholder="Địa chỉ"></input>
                         </li>
                         <li>
-                            <p><i class="fa fa-phone" title="Cell phone"></i> <a href="tel:4153234000">(415) 323-4000</a></p>
+                            <span><i class="fa fa-phone" title="Cell phone"></i></span>
+                            <input type="text" name="phone" id="phone" placeholder="SĐT"></input>
                         </li>
                         <li>
-                            <p><i class="fa fa-envelope" title="Email"></i> <a href="mailto:joe@joesmith.site">joe@joesmith.site</a></p>
+                            <span><i class="fa fa-envelope" title="Email"></i></span>
+                            <input type="text" name="email" id="email" placeholder="Email"></input>
                         </li>
                         <li>
-                            <p><i class="fa fa-globe-americas" title="Website"></i> <a href="https://joesmith.site">joesmith.site</a></p>
+                            <span><i class="fa fa-globe-americas" title="Website"></i></span>
+                            <input type="text" name="web" id="web" placeholder="Website"></input>
                         </li>
                         <li>
-                            <p><i class="fab fa-github" title="GitHub"></i> <a href="https://github.com/Tombarr">github.com/Tombarr</a></p>
+                        <span><i class="fa fa-github" title="Github"></i></span>
+                            <input type="text" name="github" id="github" placeholder="Github"></input>
                         </li>
                     </ul>
                 </section>
-                <section class="skills">
-                    <h6>Skills</h6>
-                    <ul>
-                        <li><span>Responsive Design</span></li>
-                        <li><span>Mobile Development</span></li>
-                        <li><span>Usability Testing</span></li>
-                        <li><span>Data Visualization</span></li>
-                        <li><span>A/B Testing</span></li>
-                    </ul>
-                </section>
+                        <section class="skills">
+                            <h6>Skills</h6>
+                            <ul id="skills">
+                            </ul>
+                            <li style={{margin: "6px 6px 0 0"}} className='newInputSkill' id='newInputSkill'><input type="text" placeholder="Kĩ năng"></input></li>
+                            <ul>
+                                <li onClick={this.addInputSkill}><span>+</span></li>
+                                <li onClick={this.removeInputSkill}><span>-</span></li>
+                            </ul>
+                        </section>
                 <section class="skills">
                     <h6>Technologies</h6>
-                    <ul>
-                        <li><span>JavaScript</span></li>
-                        <li><span>PHP</span></li>
-                        <li><span>HTML5</span></li>
-                        <li><span>CSS3</span></li>
-                        <li><span>Bootstrap</span></li>
-                        <li><span>React</span></li>
+                    <ul id ="technologies">
+                        
                     </ul>
+                    <li style={{margin: "6px 6px 0 0"}} className='newInputTech' id='newInputTech'><input type="text" placeholder="Kĩ năng"></input></li>
+                            <ul>
+                                <li onClick={this.addInputTech}><span>+</span></li>
+                                <li onClick={this.removeInputTech}><span>-</span></li>
+                            </ul>
                 </section>
                 <section class="references">
                     <h6>References</h6>
@@ -67,7 +111,7 @@ render() {
                     See <a href="https://git.io/f4dXp">git.io/f4dXp</a></p>
                 </section>
             </aside>
-            <section>
+            <section style={{width: "70%"}}>
                         <header class="name" aria-label="Joe Smith">
                             <label>
                                 <input type="text" name="username" id="username" placeholder="Tên"></input>
@@ -84,78 +128,25 @@ render() {
                     </section>
                     <section class="experience">
                         <h6>Experience</h6>
-                        <ol>
-                            <li>
-                                <header>
-                                    <p class="sanserif">Senior Software Engineer</p>
-                                    <time>2016 – Present</time>
-                                </header>
-                                <span>Google</span>
-                                <ul>
-                                    <li>Developed scalable database indexing technology</li>
-                                    <li>Created GraphQL APIs for accessing Google Earth</li>
-                                    <li>Leveraged Waymo datasets to double traffic statistics accuracy</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <header>
-                                    <p class="sanserif">Software Engineer</p>
-                                    <time>2014 – 2016</time>
-                                </header>
-                                <span>Facebook</span>
-                                <ul>
-                                    <li>Collected political affiliation data from millions of users</li>
-                                    <li>Authored user stories and mapped user journeys</li>
-                                    <li>Introduced regression testing to Yoga layout framework</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <header>
-                                    <p class="sanserif">Software Engineer Intern</p>
-                                    <time>2013 – 2014</time>
-                                </header>
-                                <span>Twitter</span>
-                                <ul>
-                                    <li>Analyzed and optimized code coverage across Scala architecture</li>
-                                    <li>Created project environment setup XML files</li>
-                                    <li>Maintained TCP/IP connections with 250,000 concurrent users</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <header>
-                                    <p class="sanserif">Independent iOS Engineer</p>
-                                    <time>2012 – Present</time>
-                                </header>
-                                <ul>
-                                    <li>Developed SuperUltraCoolWeather app using AccuWeather API</li>
-                                    <li>Shipped products to more than 1,000,000 daily active users</li>
-                                </ul>
-                            </li>
+                        <ol id='experience'>
+                                    <li id="newExperience">
+                                        <input type="text" name="newExperience"  placeholder="Tên công việc"></input>
+                                        <textarea id="w3review" name="w3review" rows="4" cols="70" placeholder="Mô tả"></textarea>
+                                    </li>
+                                   
                         </ol>
+                                <ul>
+                                    <li onClick={this.addExperience}><span>+</span></li>
+                                    <li onClick={this.removeExperience}><span>-</span></li>
+                                </ul>
                     </section>
                     <section class="education">
                         <h6>Education</h6>
                         <ol>
                             <li>
-                                <div>
-                                    <p class="sanserif">M.S., Human Computer Interaction</p>
-                                    <time>Sept '12 – May '14</time>
-                                </div>
-                                <div>
-                                    <span>Massachusetts Institute of Technology</span>
-                                    <span></span>
-                                </div>
+                            <textarea id="w3review" name="w3review" rows="4" cols="70" placeholder="Mô tả"></textarea>
                             </li>
-                            <li>
-                                <div>
-                                    <p class="sanserif">B.S., Computer Science</p>
-                                    <time>Sept '08 – May '12</time>
-                                </div>
-                                <div>
-                                    <span>Harvard University</span>
-                                    <span>GPA: 3.91</span>
-                                </div>
-                            </li>
+                            
                         </ol>
                     </section>
                 </section>
