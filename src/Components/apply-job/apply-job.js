@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
   
 
 export function ApplyJob(props) {
-    // console.log(props.ma_doanh_nghiep, props.ma_cong_viec);
+    // console.log(props.location.query.ma_doanh_nghiep, props.location.query.ma_cong_viec);
     const classes = useStyles();
 
-    console.log(props);
+    // console.log(props);
 
     const [madn, setMadn] = useState(()=>{
         return props.location.query.ma_doanh_nghiep;
@@ -73,8 +73,8 @@ export function ApplyJob(props) {
         formData.append('ma_doanh_nghiep', madn);
         formData.append('ma_cong_viec', macv);
         formData.append('cv', cv, cv.name);
-
-        axios.post('https://localhost:44367/api/v1/jobs/apply', formData);
+        // console.log(process.env.REACT_APP_API_APPLY_JOB);
+        axios.post(`${process.env.REACT_APP_API_APPLY_JOB}${macv}`, formData);
     }
 
     return (
