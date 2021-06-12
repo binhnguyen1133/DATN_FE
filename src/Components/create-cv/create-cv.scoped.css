@@ -48,7 +48,7 @@ button, a[role="button"] {
 }
 
 /* Source https://www.bestcssbuttongenerator.com/#/36 */
-
+/* 
 button, a[role="button"] {
 	box-shadow:inset 0px 1px 0px 0px white;
 	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
@@ -74,7 +74,7 @@ a[role="button"]:hover, a[role="button"]:active {
 button:active, a[role="button"]:active {
 	position:relative;
 	top:1px;
-}
+} */
 
 
 * {
@@ -237,13 +237,13 @@ li .fa, li .fab {
     clear: both;
 }
 
-.skills > ul > li {
+.skills > ul > li, .experience > ul > li{
     display: block;
     float: left;
     margin: 6px 6px 0 0;
 }
 
-.skills > ul > li > span {
+.skills > ul > li > span, .experience > ul > li > span {
     background-color: #f5f5f5;
     border: 1px solid rgba(45, 45, 45, 0.1618);
     border-radius: 3px;
@@ -479,4 +479,8 @@ h6 {
 
 #username {
     font-size: 30px;
+}
+
+.skills ul {
+    list-style-type: none; 
 }
