@@ -11,55 +11,23 @@ export class Footer extends React.Component {
       <footer id="footer">
         <div className="inner">
           <section>
-            <h2 className="contact">Contact Us</h2>
-            <form method="post" action="#">
+            <h2 className="contact">JOB AGENCY WEBSITE</h2>
+       
               <div className="fields">
                 <div className="field half">
-                  <input type="text" name="name" id="name" placeholder="Name" />
+                  <a  href="/" name="name" id="name" >Home Page</a>
                 </div>
-
                 <div className="field half">
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    placeholder="Email"
-                  />
+                  <span  name="email"id="email"> </span>
                 </div>
-
                 <div className="field">
-                  <input
-                    type="text"
-                    name="subject"
-                    id="subject"
-                    placeholder="Subject"
-                  />
+                  <a href="./about"name="subject" id="subject">About Us</a>
                 </div>
-
-                <div className="field">
-                  <textarea
-                    name="message"
-                    id="message"
-                    rows="3"
-                    placeholder="Notes"
-                  />
-                </div>
-
-                <div className="field text-right">
+               <div className="field text-right">
                   <label>&nbsp;</label>
-
-                  <ul className="actions">
-                    <li>
-                      <input
-                        type="submit"
-                        value="Send Message"
-                        className="primary"
-                      />
-                    </li>
-                  </ul>
                 </div>
               </div>
-            </form>
+
           </section>
           <section>
             <h2 className="contact">Contact Info</h2>
@@ -67,48 +35,30 @@ export class Footer extends React.Component {
             <ul className="alt">
               <li>
                 <span className="fa fa-envelope-o" />{" "}
-                <a href="/">contact@company.com</a>
+                <a href="mailto: timkiemvieclam2021@gmail.com ">timkiemvieclam2021@gmail.com</a>
               </li>
               <li>
-                <span className="fa fa-phone" /> +1 333 4040 5566{" "}
+              <span className="fa fa-facebook"/>{" "}
+              <a href="https://www.facebook.com/jobagency.2021" > JOB AGENCY PAGE</a>
               </li>
               <li>
-                <span className="fa fa-map-pin" /> 212 Barrington Court New
-                York, ABC 10001 United States of America
+                <span className="fa fa-phone" /> +84 520 131415{" "}
               </li>
+              <li>
+                <span className="fa fa-map-pin" /> 227 Nguyen Van Cu, F4, D5 Ho Chi Minh City
+              </li>
+             
             </ul>
 
-            <h2>Follow Us</h2>
-
-            <ul className="icons">
-              <li>
-                <a href="/" className="icon style2 fa-twitter">
-                  <span className="label">Twitter</span>
-                </a>
-              </li>
-              <li>
-                <a href="/" className="icon style2 fa-facebook">
-                  <span className="label">Facebook</span>
-                </a>
-              </li>
-              <li>
-                <a href="/" className="icon style2 fa-instagram">
-                  <span className="label">Instagram</span>
-                </a>
-              </li>
-              <li>
-                <a href="/" className="icon style2 fa-linkedin">
-                  <span className="label">LinkedIn</span>
-                </a>
-              </li>
-            </ul>
+            
+          
           </section>
 
           <ul className="copyright">
-            <li>Copyright © 2020 Company Name </li>
+            <li>Copyright JOB AGENCY WEBSITE</li>
             <li>
-              Template by:{" "}
-              <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+              {" "}
+              <a href="https://www.timkiemvieclam.tech/">www.timkiemvieclam.tech</a>
             </li>
           </ul>
         </div>
