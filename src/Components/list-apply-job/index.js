@@ -41,6 +41,10 @@ function Row(props) {
   console.log(candidates);
 
   // console.log(candidates);
+  function changeDate(date) {
+		var newDate = new Date(date);
+		return newDate.toDateString();
+	}
 
   return (
     <React.Fragment>
@@ -53,8 +57,8 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {job.ten_cong_viec}
         </TableCell>
-        <TableCell align="right">{job.ngay_bat_dau}</TableCell>
-        <TableCell align="right">{job.ngay_ket_thuc}</TableCell>
+        <TableCell align="right">{changeDate(job.ngay_bat_dau)}</TableCell>
+        <TableCell align="right">{changeDate(job.ngay_ket_thuc)}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -125,14 +129,14 @@ export function ListApplyJob(props) {
           })
     },[]);
 
-  // kiểm tra job nào có ai apply
+  // lấy ra danh sách các job có người apply
   const checkJob = () => {
     const arrJobs = [];
     let arrCandidates = [];
     jobs.forEach(job =>{
       candidates.forEach(candidate =>{
         if(candidate.ma_cong_viec === job.ma_cong_viec && arrJobs.indexOf(job) === -1){
-          arrCandidates.push(candidate);
+          // arrCandidates.push(candidate);
           // setCandidates(arrCandidates);
           arrJobs.push(job);
           // setJobs(arrJobs);
@@ -142,10 +146,10 @@ export function ListApplyJob(props) {
     return arrJobs;
   }
 
-  const checkCandidates = () => {
+  // lấy ra danh sách apply của từng job
+  const checkCandidates = (job) => {
     const arrJobs = [];
-    let arrCandidates = [];
-    jobs.forEach(job =>{
+    let arrCandidates = [];   
       candidates.forEach(candidate =>{
         if(candidate.ma_cong_viec === job.ma_cong_viec){
           arrCandidates.push(candidate);
@@ -154,7 +158,6 @@ export function ListApplyJob(props) {
           // setJobs(arrJobs);
         }
       })
-    })
     return arrCandidates;
   }
 
@@ -175,7 +178,7 @@ export function ListApplyJob(props) {
             </TableHead>
             <TableBody>
               {checkJob().map((job) => (
-                <Row job={job} key={job.ma_cong_viec} candidates={checkCandidates()}/>
+                <Row job={job} key={job.ma_cong_viec} candidates={checkCandidates(job)}/>
               ))} 
             </TableBody>
           </Table>
