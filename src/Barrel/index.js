@@ -15,6 +15,7 @@ import { CreateCV } from '../Components/create-cv/create-cv.js';
 import { ApplyJob } from '../Components/apply-job/apply-job.js';
 import {ListApplyJob} from '../Components/list-apply-job/index.js';
 import {ApproveJob} from '../Components/approve-job/approve.js';
+import {MyJob} from '../Components/my-job/my-job.js';
 
 export {
 	Login,
@@ -33,5 +34,6 @@ export {
 	CreateCV,
 	ApplyJob,
 	ListApplyJob,
-	ApproveJob
+	ApproveJob,
+	MyJob
 };
