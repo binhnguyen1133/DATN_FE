@@ -11,7 +11,8 @@ import {
 	CreateCV,
 	ApplyJob,
 	ListApplyJob,
-	ApproveJob
+	ApproveJob,
+	MyJob
 } from '../Barrel/index.js';
 
 const routes = [
@@ -62,6 +63,10 @@ const routes = [
 	{
 		path: '/job/approve',
 		component: ApproveJob
+	},
+	{
+		path: '/myjob',
+		component: MyJob
 	}
 ];
 
