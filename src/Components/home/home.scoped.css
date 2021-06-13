@@ -21,7 +21,7 @@
         margin: 2.5em 0 0 2.5em;
     }
 
-        .tiles article > .image {
+        /* .tiles article > .image {
             -moz-transition: -moz-transform 0.5s ease;
             -webkit-transition: -webkit-transform 0.5s ease;
             -ms-transition: -ms-transform 0.5s ease;
@@ -33,7 +33,7 @@
             overflow: hidden;
             max-width: 360px;
             max-height: 240px;
-        }
+        } */
 
             .tiles article > .image img {
                 display: block;
