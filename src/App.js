@@ -15,7 +15,9 @@ export class App extends React.Component {
 		this.state = {
 			currentPath: window.location.pathname,
 			isRouteChange: 0,
+			account: {},
 		};
+		this.getAccount = this.getAccount.bind(this);
 	}
 
 	componentDidMount() {
@@ -32,11 +34,18 @@ export class App extends React.Component {
 		});
 	}
 
+	getAccount = (account) => {
+		if(account !== undefined)
+			this.setState({
+				account: {...account}
+			})
+	}
+
 	render() {
 		if (this.state.currentPath !== '/login') {
 			return (
 				<div>
-					<Header />
+					<Header account={this.getAccount}/>
 					<Switch>
 						{routes.map(({ path, component }, key) => (
 							<Route

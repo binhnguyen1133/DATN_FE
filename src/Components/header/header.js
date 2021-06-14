@@ -22,6 +22,8 @@ export class Header extends React.Component {
 		// console.log('Header');
 		const account = await this.checkRole();
 		console.log(account);
+		this.props.account(account);
+
 		if (account !== null) {
 			if (Object.keys(account).indexOf('ma_dn') > -1) {
 				this.setState({
