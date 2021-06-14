@@ -4,6 +4,13 @@ import qs from 'query-string';
 import _, { join } from 'lodash';
 import { Link } from 'react-router-dom';
 import ApplyJob from '../apply-job/apply-job';
+import {
+	addMyJob,
+	getToken,
+	getMyJob,
+	CheckJobExistInMyJob,
+	deteleFavoriteJob
+} from '../../services/api.js';
 
 export class JobDetail extends React.Component {
 	constructor(props) {
@@ -13,12 +20,14 @@ export class JobDetail extends React.Component {
 			isLoaded: false,
 			items: [],
 			job: {
-				data: {},
+				data: {}
 			},
 		};
+		this.addMyFavoriteJob = this.addMyFavoriteJob.bind(this);
+		this.deleteMyFavoriteJob = this.deleteMyFavoriteJob.bind(this);
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		const queryParams = qs.parse(this.props.location.search);
 		if(queryParams.ma_dn != "undefined") {
 		fetch(
@@ -34,6 +43,11 @@ export class JobDetail extends React.Component {
 						job: this.groupSkill(result.data),
 					});
 					console.log(this.state.job);
+					const checkJobExist = CheckJobExistInMyJob(this.state.job.ma_cong_viec).then((check) => {
+						this.setState({
+							favoriteJob: check.data
+						});
+					});
 				},
 				// Note: it's important to handle errors here
 				// instead of a catch() block so that we don't swallow
@@ -58,6 +72,11 @@ export class JobDetail extends React.Component {
 							job: result.data,
 						});
 						console.log(this.state.job);
+						const checkJobExist = CheckJobExistInMyJob(this.state.job.ma_cong_viec).then((check) => {
+							this.setState({
+								favoriteJob: check.data
+							});
+						});
 					},
 					// Note: it's important to handle errors here
 					// instead of a catch() block so that we don't swallow
@@ -70,6 +89,9 @@ export class JobDetail extends React.Component {
 					}
 				);
 			}
+			const token = getToken();
+			console.log(token);
+		
 	}
 
 	groupSkill(job) {
@@ -84,6 +106,30 @@ export class JobDetail extends React.Component {
         groupSkillJob = job[0];
         return groupSkillJob;
     }
+
+	async addMyFavoriteJob() {
+		console.log(this.state.job.ma_cong_viec);
+		let job = {
+			ma_cong_viec: this.state.job.ma_cong_viec
+		};
+		const res = await addMyJob(job);
+		CheckJobExistInMyJob(this.state.job.ma_cong_viec).then((check) => {
+			this.setState({
+				favoriteJob: check.data
+			});
+		});
+		console.log(res);
+	}
+
+	async deleteMyFavoriteJob() {
+		const res = await deteleFavoriteJob(this.state.job.ma_cong_viec);
+		console.log(res);
+		CheckJobExistInMyJob(this.state.job.ma_cong_viec).then((check) => {
+			this.setState({
+				favoriteJob: check.data
+			});
+		});
+	}
 
 	render() {
 		return (
@@ -108,7 +154,6 @@ export class JobDetail extends React.Component {
 
 							<div className="col-lg-5">
 								<h3>Short Description</h3>
-
 								<p>
 									- Medical / Health Jobs <br /> - London{' '}
 									<br /> - 20-06-2020 <br /> - Contract
@@ -129,6 +174,12 @@ export class JobDetail extends React.Component {
 								>
 									Apply for this job
 								</Link>
+								<br></br>
+								<br></br>
+								<br></br>
+
+							{(this.state.favoriteJob == false) && (<button type="button" class="btn btn-info" onClick={this.addMyFavoriteJob}><i class="fas fa-star"></i> Thêm vào yêu thích</button>)}
+							{(this.state.favoriteJob == true) && (<button type="button" class="btn btn-secondary" onClick={this.deleteMyFavoriteJob}><i class="fas fa-star"></i> Đã yêu thích</button>)}			
 							</div>
 						</div>
 					</div>

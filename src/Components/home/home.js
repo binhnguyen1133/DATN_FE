@@ -53,7 +53,7 @@ export class Home extends React.Component {
             <div className="carousel-item active">
               <img
                 className="d-block w-100"
-                src="http://www.launchdreambusiness.com/wp-content/uploads/2020/06/selection-process-pillar-page-featured-2048x1133.jpg"
+                src="https://www.resumesbyjoyce.com/wp-content/uploads/2019/11/Help-with-writing-an-executive-resume.jpg"
                 height="560!important"
                 alt="First slide"
               />

@@ -1,3 +1,5 @@
+import { CreateJob } from "../Components/create-job/createJob";
+
 async function request(url, method, params, headers) {
 	if (method === 'POST') {
 		const res = await fetch(url, {
@@ -10,6 +12,15 @@ async function request(url, method, params, headers) {
 		return resJson;
 	}
 	if (method === 'GET') {
+		const res = await fetch(url, {
+			method: method,
+			headers: headers,
+		});
+
+		const resJson = await res.json();
+		return resJson;
+	}
+	if (method === 'DELETE') {
 		const res = await fetch(url, {
 			method: method,
 			headers: headers,
@@ -105,6 +116,54 @@ async function approveJob(request_id) {
 	return res;
 }
 
+async function addMyJob(job) {
+	const url = process.env.REACT_APP_API_ADD_MY_JOB;
+	const method = 'POST';
+	const token = getToken();
+	const headers = {
+		'Content-type': 'application/json',
+		authorization: token,
+	};
+	const res = await request(url, method, job, headers);
+	return res;
+}
+
+async function getMyJob(page) {
+	const url = `${process.env.REACT_APP_API_ADD_MY_JOB}?pageIndex=${page}`;
+	const method = 'GET';
+	const token = getToken();
+	const headers = {
+		'Content-type': 'application/json',
+		authorization: token,
+	};
+	const res = await request(url, method, null, headers);
+	return res;
+}
+
+async function CheckJobExistInMyJob(macv) {
+	const url = `${process.env.REACT_APP_API_ADD_MY_JOB}/check?ma_cv=${macv}`;
+	const method = 'GET';
+	const token = getToken();
+	const headers = {
+		'Content-type': 'application/json',
+		authorization: token,
+	};
+	const res = await request(url, method, null, headers);
+	return res;
+}
+
+async function deteleFavoriteJob(macv) {
+	const url = `${process.env.REACT_APP_API_ADD_MY_JOB}?ma_cong_viec=${macv}`;
+	const method = 'DELETE';
+	const token = getToken();
+	const headers = {
+		'Content-type': 'application/json',
+		authorization: token,
+	};
+	const res = await request(url, method, null, headers);
+	return res;
+}
+
 export {
 	loginToken,
 	addJob,
@@ -114,4 +173,8 @@ export {
 	register,
 	getApproveList,
 	approveJob,
+	addMyJob,
+	getMyJob,
+	CheckJobExistInMyJob,
+	deteleFavoriteJob
 };
