@@ -10,11 +10,12 @@
 }
 
 .listItems {
+  list-style: none;
   position: absolute;
   top: 40px;
-  margin: -2px 0px 0px -23px;
+  margin: -2px 0px 0px -38px;
   /* top: 50px; */
-  width: 91%;
+  width: 94%;
 }
 
 .suggestionItems {
@@ -30,7 +31,7 @@
   border: 1px solid rgba(100, 100, 100, 0.5);
   line-height: 40px;
   cursor: pointer;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   z-index: 1000;
   background-color: #fff;
   display: block;

@@ -1,11 +1,11 @@
 // import logo from './logo.svg';
 // import './App.css';
-import { routes } from './Routes/routes.js';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import { Header, Footer, Login, SignUpComponent } from './Barrel/index.js';
 import React from 'react';
-
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { Footer, Header, Login, SignUpComponent } from './Barrel/index.js';
+import { routes } from './Routes/routes.js';
 import Emitter from './services/event.js';
+
 
 export class App extends React.Component {
 	constructor(props) {
@@ -15,7 +15,9 @@ export class App extends React.Component {
 		this.state = {
 			currentPath: window.location.pathname,
 			isRouteChange: 0,
+			account: {},
 		};
+		this.getAccount = this.getAccount.bind(this);
 	}
 
 	componentDidMount() {
@@ -32,11 +34,18 @@ export class App extends React.Component {
 		});
 	}
 
+	getAccount = (account) => {
+		if(account !== undefined)
+			this.setState({
+				account: {...account}
+			})
+	}
+
 	render() {
 		if (this.state.currentPath !== '/login') {
 			return (
 				<div>
-					<Header />
+					<Header account={this.getAccount}/>
 					<Switch>
 						{routes.map(({ path, component }, key) => (
 							<Route
