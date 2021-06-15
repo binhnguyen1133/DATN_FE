@@ -1,11 +1,11 @@
 // import logo from './logo.svg';
 // import './App.css';
-import { routes } from './Routes/routes.js';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import { Header, Footer, Login, SignUpComponent } from './Barrel/index.js';
 import React from 'react';
-
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { Footer, Header, Login, SignUpComponent } from './Barrel/index.js';
+import { routes } from './Routes/routes.js';
 import Emitter from './services/event.js';
+
 
 export class App extends React.Component {
 	constructor(props) {

@@ -121,7 +121,7 @@ export class Home extends React.Component {
                 return(
                     <article className="style1" key={job.ma_cong_viec}>
                       <span className="image">
-                        <div class="img"
+                        <div className="img"
                         />
                       </span>
                       <Link to={`/job/?ma_dn=${job.ma_doanh_nghiep}&ma_cv=${job.ma_cong_viec}`}>
