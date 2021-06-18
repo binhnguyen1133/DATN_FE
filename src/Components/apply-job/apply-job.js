@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './apply-job.scoped.css';
-import { Input } from '@material-ui/core';
-import { conforms } from 'lodash';
 import axios from 'axios';
 
 ApplyJob.propTypes = {
@@ -74,7 +72,12 @@ export function ApplyJob(props) {
         formData.append('ma_cong_viec', macv);
         formData.append('cv', cv, cv.name);
         // console.log(process.env.REACT_APP_API_APPLY_JOB);
-        axios.post(`${process.env.REACT_APP_API_APPLY_JOB}`, formData);
+        axios.post(`${process.env.REACT_APP_API_APPLY_JOB}`, formData)
+            .then((response) => {
+                if(response.status === 200){
+                    alert("Success");
+                }
+            })
     }
 
     return (
