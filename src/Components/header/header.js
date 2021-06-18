@@ -174,6 +174,16 @@ export class Header extends React.Component {
 							<li>
 								<Link to='/'>Home</Link>
 							</li>
+							{this.state.role === 'kh' ? (
+								<li>
+									<Link to="/myjob">My job</Link>
+								</li>
+							): null} 
+							{this.state.role === 'kh'? (
+								<li>
+									<Link to="/create-cv">Create cv</Link>
+								</li>
+							): null} 
 							{this.state.role === 'admin' ? (
 								<li>
 									<Link to="/job/approve">Approve job</Link>

@@ -138,7 +138,7 @@ export class JobDetail extends React.Component {
 					<h1>
 						{this.state.job.ten_cong_viec}{' '}
 						<span className="pull-right">
-							60 000 {this.state.job.don_vi_tien_te}
+						{this.state.job.luong_toi_thieu}-{this.state.job.luong_toi_da} {this.state.job.don_vi_tien_te}
 						</span>
 					</h1>
 
