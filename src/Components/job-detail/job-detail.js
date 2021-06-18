@@ -178,8 +178,8 @@ export class JobDetail extends React.Component {
 								<br></br>
 								<br></br>
 
-							{(this.state.favoriteJob == false) && (<button type="button" class="btn btn-info" onClick={this.addMyFavoriteJob}><i class="fas fa-star"></i> Thêm vào yêu thích</button>)}
-							{(this.state.favoriteJob == true) && (<button type="button" class="btn btn-secondary" onClick={this.deleteMyFavoriteJob}><i class="fas fa-star"></i> Đã yêu thích</button>)}			
+							{(this.state.favoriteJob == false) && (<button type="button" class="btn btn-info" onClick={this.addMyFavoriteJob}><i class="fas fa-star"></i> Add to my job</button>)}
+							{(this.state.favoriteJob == true) && (<button type="button" class="btn btn-secondary" onClick={this.deleteMyFavoriteJob}><i class="fas fa-star"></i> Added to my job</button>)}			
 							</div>
 						</div>
 					</div>
