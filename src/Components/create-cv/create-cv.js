@@ -96,7 +96,7 @@ export class CreateCV extends React.Component {
             const pdf = new jsPDF("p", "mm", "a4");
             var width = pdf.internal.pageSize.getWidth();
             var height = pdf.internal.pageSize.getHeight();     
-            pdf.addImage(dataURL, 'JPEG', 50, 50, 170, 200);
+            pdf.addImage(dataURL, 'JPEG', 0, 0, width, height);
             pdf.save('cv.pdf')
         })
         }, 500);
